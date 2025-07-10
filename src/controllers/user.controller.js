@@ -67,7 +67,7 @@ const loginuser = async (req, res) => {
       .cookie("accesstoken", accesstoken, {
         httpOnly: true,
         secure: false,
-        sameSite: "Lax",
+        sameSite: "None",
       })
       .cookie("refreshtoken", refreshtoken, {
         httpOnly: true,
@@ -139,7 +139,7 @@ const refreshacesstoken = async (req, res) => {
       .cookie("refreshtoken", newrefreshtoken, {
         httpOnly: true,
         maxAge: 3 * 24 * 60 * 60 * 1000,
-        sameSite: "Lax",
+        sameSite: "None",
         secure: false,
       })
       .json({ success: true, message: "Token refreshed" });
