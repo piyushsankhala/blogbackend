@@ -71,8 +71,8 @@ const loginuser = async (req, res) => {
       })
       .cookie("refreshtoken", refreshtoken, {
         httpOnly: true,
-        secure: false,
-        sameSite: "Lax",
+        secure: true,
+        sameSite: "None",
       })
       .json({ message: "Logged in successfully" , currentuserid : existinguser._id.toString() });
   } catch (error) {
@@ -133,8 +133,8 @@ const refreshacesstoken = async (req, res) => {
       .cookie("accesstoken", accesstoken, {
         httpOnly: true,
         maxAge: 15 * 60 * 1000,
-        sameSite: "Lax",
-        secure: false,
+        sameSite: "None",
+        secure: true,
       })
       .cookie("refreshtoken", newrefreshtoken, {
         httpOnly: true,
