@@ -9,7 +9,7 @@ const route = Router()
 route.post("/register",registeruser) 
 route.post("/login",loginuser)
 
-route.get("logout",authmiddleware ,logout)
+route.get("/logout",authmiddleware ,logout)
 route.get("/currentuser",authmiddleware,currentuser)
 route.post("/refresh", refreshacesstoken)
 
