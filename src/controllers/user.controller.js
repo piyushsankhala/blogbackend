@@ -74,7 +74,7 @@ const loginuser = async (req, res) => {
         secure: false,
         sameSite: "Lax",
       })
-      .json({ message: "Logged in successfully" , currentuserid : existinguser._id });
+      .json({ message: "Logged in successfully" , currentuserid : existinguser._id.toString() });
   } catch (error) {
     console.error("🔥 Login error:", error);
     return res.status(500).json({ message: "Internal server error" });

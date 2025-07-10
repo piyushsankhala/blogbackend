@@ -18,7 +18,7 @@ const blogschema = new Schema({
         type : mongoose.Schema.Types.ObjectId,
         ref : 'User'
     }]
-})
+},{timestamps :true})
 
 const Blog = mongoose.model('Blog', blogschema);
 export {Blog}
