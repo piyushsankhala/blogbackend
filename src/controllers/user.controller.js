@@ -66,13 +66,15 @@ const loginuser = async (req, res) => {
       .status(200)
       .cookie("accesstoken", accesstoken, {
         httpOnly: true,
-        secure: false,
+        secure: true,
         sameSite: "None",
+        paht :"/"
       })
       .cookie("refreshtoken", refreshtoken, {
         httpOnly: true,
         secure: true,
         sameSite: "None",
+        path :"/"
       })
       .json({ message: "Logged in successfully" , currentuserid : existinguser._id.toString() });
   } catch (error) {
