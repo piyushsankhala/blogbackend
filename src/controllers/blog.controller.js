@@ -1,6 +1,6 @@
 import express from 'express';
 import { Blog } from '../models/blog.model.js'
-import { uploadOnCloudinary } from '../utils/cloundinary';
+import { uploadOnCloudinary } from '../utils/cloundinary.js';
 
 const getallblogs = async(req,res)=>{
     try{
@@ -58,19 +58,19 @@ const togglelikes = async(req,res)=>{
 const uploadblog = async(req,res)=>{
     try{
         const {content} = req.body
-        const{image}= req.file?.path
+        const image= req.file?.path
         const imageuploaded = await uploadOnCloudinary(image)
         const currentuserid = req.user?._id
         if(!currentuserid){
             return res.status(401).json({message : "Unauthorized"});
             }
-        Blog.create({
+       const blog =   await Blog.create({
             content : content,
             user : currentuserid,
             image : imageuploaded.url
 
         })
-        return res.status(201).json({message : "Blog uploaded successfully"});
+        return res.status(201).json({message : "Blog uploaded successfully", blog:blog});
 
     }catch(error){
         console.error(error)

@@ -1,5 +1,5 @@
 import mongoose,{Schema} from "mongoose";
-import { User } from "./user.model";
+import { User } from "./user.model.js";
 const blogschema = new Schema({
     user : {
         type : mongoose.Schema.Types.ObjectId,

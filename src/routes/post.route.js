@@ -1,14 +1,14 @@
 import express from 'express';
 import { Router } from 'express';
-import { authmiddleware } from '../middlewares/auth.middleware';
-import { upload } from '../middlewares/multer.middleware';
-import { getallblogs, getblogofexistinguser, togglelikes, uploadblog } from '../controllers/blog.controller';
+import { authmiddleware } from '../middlewares/auth.middleware.js';
+import { upload } from '../middlewares/multer.middleware.js';
+import { getallblogs, getblogofexistinguser, togglelikes, uploadblog } from '../controllers/blog.controller.js';
 
 const router = Router()
 
 router.post('/upload',authmiddleware,upload.single('image'),uploadblog)
 router.get('/getallblogs',authmiddleware,getallblogs)
-router.post('getblogofexsitinguser',authmiddleware,getblogofexistinguser)
-router.post('togglelike',authmiddleware,togglelikes)
+router.get('/getblogofexistinguser',authmiddleware,getblogofexistinguser)
+router.patch('/togglelike',authmiddleware,togglelikes)
 
-export {router}
+export default router;

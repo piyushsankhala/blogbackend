@@ -1,12 +1,15 @@
 import express from "express";
 import cors from "cors";
 import CookieParser from "cookie-parser"
+import userroutes from "./routes/user.route.js";
+import blogroutes from "./routes/post.route.js";
 
+import otproutes from "./routes/otp.route.js"
 
 const app = express();
 app.use(cors(
     {
-        origin: "http://localhost:5173",
+        origin: " http://localhost:5176",
        
         credentials: true,
     }
@@ -20,6 +23,10 @@ app.use(express.static("public"));
 app.get("/", (req, res) => {
     res.send("API is running...");
 });
+app.use("/api/user",userroutes)
+app.use("/api/blog",blogroutes)
+app.use("/api/otp",otproutes)
+
 
 
 export default app;

@@ -11,7 +11,7 @@ const userschema = new Schema({
 
 
     },
-    gmail : {
+    email : {
         type : String ,
         unique : true ,
         required : true ,
@@ -41,7 +41,7 @@ userschema.pre("save", async function(next){
     if(!this.isModified("password")){
         return next()
     }
-    await bcrypt.hash(this.password , 10)
+   this.password =  await bcrypt.hash(this.password , 10)
     next();
 })
 
@@ -49,13 +49,13 @@ userschema.methods.isvalidpassword = async function(password){
     return await bcrypt.compare(password , this.password)
     }
 
-userschema.methods.getaccesstoken = async function(){
-    const token = jwt.sign({id : this._id} , process.env.ACCESS_SECRET_KEY,{expiresIn : "1h"})
+userschema.methods.getaccesstoken =  function(){
+    const token = jwt.sign({id : this._id} , process.env.ACCESS_KEY_SECRET,{expiresIn : "1h"})
     return token ;
 }
 
-userschema.methods.getrefreshtoken = async function () {
-    return jwt.sign({id : this._id},process.env.REFRESH_SECRET_KEY,{expiresIn:"3d"});
+userschema.methods.getrefreshtoken =  function () {
+    return jwt.sign({id : this._id},process.env.REFRESH_KEY_SECRET,{expiresIn:"3d"});
     
 }
 
