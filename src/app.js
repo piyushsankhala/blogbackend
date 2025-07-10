@@ -9,7 +9,7 @@ import otproutes from "./routes/otp.route.js"
 const app = express();
 app.use(cors(
     {
-        origin: " http://localhost:5176",
+        origin: " https://blogfrontend1.netlify.app",
        
         credentials: true,
     }
