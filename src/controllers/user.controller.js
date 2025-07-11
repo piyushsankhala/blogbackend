@@ -68,12 +68,14 @@ const loginuser = async (req, res) => {
         httpOnly: true,
         secure: true,
         sameSite: "None",
-        paht :"/"
+        maxAge: 15 * 60 * 1000, 
+        path :"/"
       })
       .cookie("refreshtoken", refreshtoken, {
         httpOnly: true,
         secure: true,
         sameSite: "None",
+        maxAge: 3 * 24 * 60 * 60 * 1000,
         path :"/"
       })
       .json({ message: "Logged in successfully" , currentuserid : existinguser._id.toString() });
