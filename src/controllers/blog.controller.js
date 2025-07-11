@@ -50,10 +50,10 @@ const togglelikes = async(req,res)=>{
                 blog.likes.push(currentuserid)
             }
             await blog.save()
-            return res.status(201).json({updatedblog : blog})
+            return res.status(201).json({updatedBlog : blog})
     }catch(error){
         console.error(error)
-        return res.status(500).json({message : "Error toggling likes",updatedblog });
+        return res.status(500).json({message : "Error toggling likes" });
     }
 }
 
