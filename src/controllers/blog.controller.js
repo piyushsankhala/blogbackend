@@ -37,7 +37,7 @@ const togglelikes = async(req,res)=>{
         if(!currentuserid){
             return res.status(401).json({message : "Unauthorized"});
             }
-            const blog = await Blog.findById(blogid)
+            const blog = await Blog.findById(blogid).populate('user')
             if(!blog){
                 return res.status(404).json({message : "Blog not found"});
                 }
