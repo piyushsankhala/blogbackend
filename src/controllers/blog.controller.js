@@ -37,7 +37,7 @@ const togglelikes = async(req,res)=>{
         if(!currentuserid){
             return res.status(401).json({message : "Unauthorized"});
             }
-            const blog = await Blog.findById(blogid);
+            const blog = await Blog.findById(blogid).populate('user').populate('likes');
             if(!blog){
                 return res.status(404).json({message : "Blog not found"});
                 }
@@ -50,9 +50,10 @@ const togglelikes = async(req,res)=>{
                 blog.likes.push(currentuserid)
             }
             await blog.save()
+            return res.status(201).json({updatedblog : blog})
     }catch(error){
         console.error(error)
-        return res.status(500).json({message : "Error toggling likes"});
+        return res.status(500).json({message : "Error toggling likes",updatedblog });
     }
 }
 

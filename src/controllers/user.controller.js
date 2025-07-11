@@ -120,7 +120,7 @@ const refreshacesstoken = async (req, res) => {
     }
 
     // 🔒 Ensure the refresh token matches the stored one
-    if (existingUser.refreshtoken !== refreshtoken) {
+    if (existingUser.refreshtoken !== refreshtoken.toString()) {
       return res.status(403).json({ message: "Refresh token mismatch" });
     }
 
