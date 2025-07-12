@@ -12,4 +12,4 @@ router.get('/getblogofexistinguser',authmiddleware,getblogofexistinguser)
 router.patch('/togglelike',authmiddleware,togglelikes)
 router.post('/blogofuser',authmiddleware,getpostofuser)
 
-export default route
+export default router
