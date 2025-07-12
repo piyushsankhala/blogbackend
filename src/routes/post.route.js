@@ -10,6 +10,6 @@ router.post('/upload',authmiddleware,upload.single('image'),uploadblog)
 router.get('/getallblogs',authmiddleware,getallblogs)
 router.get('/getblogofexistinguser',authmiddleware,getblogofexistinguser)
 router.patch('/togglelike',authmiddleware,togglelikes)
-router.get('/blogofuser',authmiddleware,getpostofuser)
+router.post('/blogofuser',authmiddleware,getpostofuser)
 
-export default router;
+export default route
