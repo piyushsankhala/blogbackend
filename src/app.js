@@ -3,7 +3,8 @@ import cors from "cors";
 import CookieParser from "cookie-parser"
 import userroutes from "./routes/user.route.js";
 import blogroutes from "./routes/post.route.js";
-
+import chatroute from "./routes/chat.route.js"
+import messageroute from "./routes/message.route.js"
 import otproutes from "./routes/otp.route.js"
 
 const app = express();
@@ -26,6 +27,8 @@ app.get("/", (req, res) => {
 app.use("/api/user",userroutes)
 app.use("/api/blog",blogroutes)
 app.use("/api/otp",otproutes)
+app.use("/api/chat",chatroute)
+app.use("/api/message",messageroute)
 
 
 

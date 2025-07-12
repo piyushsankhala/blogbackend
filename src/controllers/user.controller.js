@@ -1,6 +1,7 @@
 import express from 'express';
 import {User} from '../models/user.model.js';
 import jwt from "jsonwebtoken"
+import { Chat } from '../models/chat.model.js';
 const registeruser = async (req ,res) => {
     try{
             const {username , email , password}= req.body;
@@ -167,7 +168,25 @@ const currentuser = async(req,res)=>{
   }
 
 }
+const getallusers = async(req,res)=>{
+  try{
+    const currentsuserid = req.user
+    const users =await  User.find()
+    const chatusers = await  Promise.all(
+      users.map(async(user)=>{
+        const chat = await Chat.find({users :{$all:[currentsuserid,user._id]}})
+        if(chat){
+          return { username : user.username}
+        }
+      })
+    )
+    const validUsers = chatusers.filter(Boolean);
+    return res.status(200).json({chatusers : validUsers})
+  }catch(err){
+    return res.status(500).json({message :"error in get all users"})
+  }
+}
 
 
-export {registeruser,loginuser,refreshacesstoken,logout,currentuser}
+export {registeruser,loginuser,refreshacesstoken,logout,currentuser,getallusers}
 
