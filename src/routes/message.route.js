@@ -1,9 +1,9 @@
 import express from "express";
 import { sendMessage } from "../controllers/message.controller.js";
-import { authMiddleware} from "../middlewares/auth.middleware.js";
+import { authmiddleware} from "../middlewares/auth.middleware.js";
 
 const router = express.Router();
 
-router.post("/send",authMiddleware, sendMessage);
+router.post("/send",authmiddleware, sendMessage);
 
 export default router;
