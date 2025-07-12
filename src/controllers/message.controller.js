@@ -1,4 +1,4 @@
-import { Message } from "../models/messages.model.js";
+import { Message } from "../models/message.model.js";
 import { Chat } from "../models/chat.model.js";
 
 export const sendMessage = async (req, res) => {
