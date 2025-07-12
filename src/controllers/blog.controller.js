@@ -79,4 +79,19 @@ const uploadblog = async(req,res)=>{
         return res.status(500).json({message:"internal  server error"})
     }
 }
-export {getallblogs,getblogofexistinguser,togglelikes,uploadblog}
+const getpostofuser = async(req,res)=>{
+  try{
+    const {userid} = req.body
+    if(!userid){
+      return res.status(400).json({message:"user id is not provided"})
+    }
+    const blogs = await Blog.find({user : userid}).populate('user')
+    if(!blogs){
+        return res.status(400).json({message : "blogs not found"})
+    }
+    return res.status(200).json({blogs : blogs})
+  }catch(err){
+    return res.status(500).json({message : "Internal server error"})
+  }
+}
+export {getallblogs,getblogofexistinguser,togglelikes,uploadblog,getpostofuser}
