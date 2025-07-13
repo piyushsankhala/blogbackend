@@ -176,11 +176,12 @@ const getallusers = async (req, res) => {
 
     const chatusers = await Promise.all(
       users.map(async (user) => {
-        const chat = await Chat.find({
+        const chat = await Chat.findOne({
           users: { $all: [currentsuserid, user._id] }
         });
 
-        if (chat.length > 0) {
+        
+        if (chat) {
           return { username: user.username, _id: user._id,messageindicator : chat.messageindicators.get(currentsuserid) };
         }
 
