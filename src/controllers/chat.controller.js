@@ -71,7 +71,8 @@ import mongoose from "mongoose";
         }
         const users = [sender, reciever];
       const chats = await Chat.findOne({ users: { $all: [sender._id, reciever._id] } }).populate("users").populate("messages")
-      chats.messageIndicators.set(senderId.toString(), false);
+      chats.messageIndicators.set(senderId.toString(),false)
+      
       await chats.save();
 
      
