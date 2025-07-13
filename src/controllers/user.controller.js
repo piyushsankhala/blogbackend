@@ -184,14 +184,17 @@ const getallusers = async (req, res) => {
           return { username: user.username, _id: user._id };
         }
 
-        return null;
+        return null; // no chat exists
       })
     );
 
+    // ✅ filter out nulls
     const validUsers = chatusers.filter(Boolean);
-    return res.status(200).json({ chatusers: validUsers });
+
+    return res.status(200).json(validUsers);
   } catch (err) {
-    return res.status(500).json({ message: "Error in get all users" });
+    console.error(err);
+    return res.status(500).json({ message: "Server error" });
   }
 };
 
