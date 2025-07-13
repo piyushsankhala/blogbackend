@@ -168,24 +168,33 @@ const currentuser = async(req,res)=>{
   }
 
 }
-const getallusers = async(req,res)=>{
-  try{
-    const currentsuserid = req.user
-    const users =await  User.find()
-    const chatusers = await  Promise.all(
-      users.map(async(user)=>{
-        const chat = await Chat.find({users :{$all:[currentsuserid,user._id]}})
-        if(chat){
-          return { username : user.username}
+const getallusers = async (req, res) => {
+  try {
+    const currentsuserid = req.user._id;
+
+    const users = await User.find({ _id: { $ne: currentsuserid } }); // exclude self
+
+    const chatusers = await Promise.all(
+      users.map(async (user) => {
+        const chat = await Chat.find({
+          users: { $all: [currentsuserid, user._id] }
+        });
+
+        if (chat.length > 0) {
+          return { username: user.username, _id: user._id };
         }
+
+        return null;
       })
-    )
+    );
+
     const validUsers = chatusers.filter(Boolean);
-    return res.status(200).json({chatusers : validUsers})
-  }catch(err){
-    return res.status(500).json({message :"error in get all users"})
+    return res.status(200).json({ chatusers: validUsers });
+  } catch (err) {
+    return res.status(500).json({ message: "Error in get all users" });
   }
-}
+};
+
 
 
 export {registeruser,loginuser,refreshacesstoken,logout,currentuser,getallusers}
