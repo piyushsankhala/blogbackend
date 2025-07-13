@@ -180,9 +180,9 @@ const getallusers = async (req, res) => {
           users: { $all: [currentsuserid, user._id] }
         });
 
-        
+
         if (chat) {
-          return { username: user.username, _id: user._id,messageindicator : chat.messageindicators.get(currentsuserid) };
+          return { username: user.username, _id: user._id,messageindicator : chat.messageindicators.get(currentuserid) };
         }
 
         return null; // no chat exists
