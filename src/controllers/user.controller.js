@@ -173,13 +173,13 @@ const getallusers = async (req, res) => {
     const currentsuserid = req.user._id;
 
     const users = await User.find({ _id: { $ne: currentsuserid } }); // exclude self
-
+    
     const chatusers = await Promise.all(
       users.map(async (user) => {
         const chat = await Chat.findOne({
           users: { $all: [currentsuserid, user._id] }
         });
-
+       
 
         if (chat) {
           return { username: user.username, _id: user._id,messageindicator : chat.messageIndicators.get(currentsuserid) };
@@ -199,7 +199,30 @@ const getallusers = async (req, res) => {
   }
 };
 
+const countUnreadChats = async (req, res) => {
+  try {
+    const currentUserId = req.user._id.toString();
+
+    const chats = await Chat.find({ users: currentUserId });
+
+    let unreadChatCount = 0;
+
+    for (const chat of chats) {
+      const hasUnread = chat.messageIndicators?.get(currentUserId) === true;
+      if (hasUnread) {
+        unreadChatCount++;
+      }
+    }
+
+    return res.status(200).json({ unreadChatCount });
+  } catch (err) {
+    console.error("Error in countUnreadChats:", err);
+    return res.status(500).json({ message: "Server error" });
+  }
+};
 
 
-export {registeruser,loginuser,refreshacesstoken,logout,currentuser,getallusers}
+
+
+export {registeruser,loginuser,refreshacesstoken,logout,currentuser,getallusers,countUnreadChats}
 
