@@ -181,7 +181,7 @@ const getallusers = async (req, res) => {
         });
        
 
-        if (chat) {
+        if (chat && chat.messages.length>0) {
           return { username: user.username, _id: user._id,messageindicator : chat.messageIndicators.get(currentsuserid) };
         }
 
