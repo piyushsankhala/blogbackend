@@ -12,5 +12,5 @@ router.get('/getblogofexistinguser',authmiddleware,getblogofexistinguser)
 router.patch('/togglelike',authmiddleware,togglelikes)
 router.post('/blogofuser',authmiddleware,getpostofuser)
 router.delete('/deletepost', authmiddleware , deleteBlog)
-router.post('/editpost',authmiddleware , upload.single('image') , editpost)
+router.put('/editpost',authmiddleware , upload.single('image') , editpost)
 export default router
