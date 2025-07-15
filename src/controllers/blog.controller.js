@@ -94,4 +94,64 @@ const getpostofuser = async(req,res)=>{
     return res.status(500).json({message : "Internal server error"})
   }
 }
-export {getallblogs,getblogofexistinguser,togglelikes,uploadblog,getpostofuser}
+
+
+const deleteBlog = async (req, res) => {
+  try {
+    const { blogid } = req.body;
+    const currentUserId = req.user?._id;
+
+    if (!blogid) {
+      return res.status(400).json({ message: "Blog ID is required" });
+    }
+
+    const blog = await Blog.findById(blogid);
+
+    if (!blog) {
+      return res.status(404).json({ message: "Blog not found" });
+    }
+
+    // Optional: only allow owner to delete
+    if (blog.user.toString() !== currentUserId.toString()) {
+      return res.status(403).json({ message: "Unauthorized to delete this blog" });
+    }
+
+    await blog.deleteOne();
+
+    return res.status(200).json({ message: "Blog deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting blog:", error);
+    return res.status(500).json({ message: "Server error" });
+  }
+};
+const editpost =async(req,res)=>{
+    try{
+        const {blogid , content , image } = req.body
+        if(!blogid){
+            return res.status(400).json({message : "blog id is not provided"})
+        }
+        if(image){
+            const imageuploaded = await uploadOnCloudinary(image)
+            const blog = await Blog.findByIdAndUpdate(blogid,{
+            content : content,
+            image : imageuploaded.url,
+
+        })
+            
+        }
+        else{
+            const blog = await Blog.findByIdAndUpdate(blogid,{
+                content : content,
+                })
+        }
+        return res.status(200).json({message : "blog updated successfully"})
+
+    }catch(err){
+        console.error(err)
+        return res.status(500).json({message : "Internal server error"})
+    }
+}
+
+
+
+export {getallblogs,getblogofexistinguser,togglelikes,uploadblog,getpostofuser,deleteBlog , editpost}
