@@ -127,7 +127,7 @@ const deleteBlog = async (req, res) => {
 const editpost =async(req,res)=>{
     try{
         const {blogid , content } = req.body
-        const {image} = req.file?.path
+        const image = req.file?.path
         if(!blogid){
             return res.status(400).json({message : "blog id is not provided"})
         }
