@@ -220,9 +220,17 @@ const countUnreadChats = async (req, res) => {
     return res.status(500).json({ message: "Server error" });
   }
 };
+const allusers = async()=>{
+  try{
+    const users = await User.find();
+    return users;
+  }
+  catch(err){
+    console.error(err);
+  }
+}
 
 
 
-
-export {registeruser,loginuser,refreshacesstoken,logout,currentuser,getallusers,countUnreadChats}
+export {registeruser,loginuser,refreshacesstoken,logout,currentuser,getallusers,countUnreadChats,allusers}
 
