@@ -160,8 +160,9 @@ const currentuser = async(req,res)=>{
     if(!currentuserid){
       return res.status(400).json({message :"no currentuser"})
     }
+    const user = await User.findById(currentuserid)
     
-    return res.status(201).json({currentuserid})
+    return res.status(201).json({currentuserid ,user })
   }catch(error){
     console.error(error)
     return res.status(500).json({message :"error in current user"})
