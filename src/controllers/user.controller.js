@@ -229,8 +229,20 @@ const allusers = async(req , res)=>{
     console.error(err);
   }
 }
+const getuser = async(req,res)=>{
+    try{
+      const {userid} = req.body
+      const user = await User.findById(userid)
+      if(!user){
+        return res.status(404).json({message:"User not found"})
+      }
+      return res.status(200).json({user})
+    }catch(err){
+      console.error(err)
+    }
+}
 
 
 
-export {registeruser,loginuser,refreshacesstoken,logout,currentuser,getallusers,countUnreadChats,allusers}
+export {registeruser,loginuser,refreshacesstoken,logout,currentuser,getallusers,countUnreadChats,allusers,getuser}
 
