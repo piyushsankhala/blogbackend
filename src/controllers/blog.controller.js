@@ -4,7 +4,7 @@ import { uploadOnCloudinary } from '../utils/cloundinary.js';
 
 const getallblogs = async(req,res)=>{
     try{
-       const blogs = await Blog.find().sort({ createdAt: -1 }).populate("user");
+       const blogs = await Blog.find().sort({ createdAt: -1 }).populate("user").populate("likes");
 
         return res.status(200).json({blogs : blogs});
 

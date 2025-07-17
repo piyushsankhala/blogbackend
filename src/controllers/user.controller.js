@@ -127,7 +127,7 @@ const refreshacesstoken = async (req, res) => {
 
     // ✅ Issue new tokens
     const accesstoken = existingUser.getaccesstoken();
-    const newrefreshtoken = existingUser.getrefreshtoken();
+    const newrefreshtoken = existingUser.getrefreshtoken()
     existingUser.refreshtoken = newrefreshtoken;
     await existingUser.save();
 
