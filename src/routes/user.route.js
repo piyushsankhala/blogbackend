@@ -15,6 +15,6 @@ route.post("/refresh", refreshacesstoken)
 route.get('/getchatusers',authmiddleware,getallusers)
 route.get("/unreadcount" , authmiddleware ,countUnreadChats )
 route.get("/allusers",authmiddleware , allusers)
-route.get('getuser', authmiddleware,getuser)
+route.post('/getuser', authmiddleware,getuser)
 export default route;
 
